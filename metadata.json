@@ -1,0 +1,6 @@
+{
+  "name": "Samuel & Yemisi Wedding",
+  "description": "An elegant, royal wedding website for Samuel Onasanya and Akinlolu Yemisi featuring a 3D interlocking gold rings hero, live countdown, love story, schedule, marquee gallery, and RSVP.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
