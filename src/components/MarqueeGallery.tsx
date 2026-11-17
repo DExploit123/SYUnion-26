@@ -35,6 +35,7 @@ const GalleryTile: React.FC<GalleryTileProps> = ({ img, onSelect, variant }) => 
           className="w-full h-full object-cover object-top transition-transform duration-300 ease-out group-hover:scale-105"
           referrerPolicy="no-referrer"
           loading="lazy"
+          decoding="async"
         />
       ) : (
         <div className="w-full h-full flex flex-col items-center justify-center p-3 text-center bg-gradient-to-br from-[#240B47] to-[#3B126D] text-[#F3E5AB]">
@@ -237,6 +238,7 @@ export const MarqueeGallery: React.FC = () => {
                 alt={selectedImage.alt}
                 className="max-h-[70vh] w-auto mx-auto object-contain rounded-lg"
                 referrerPolicy="no-referrer"
+                decoding="async"
               />
 
               <button

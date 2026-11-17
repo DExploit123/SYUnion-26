@@ -108,7 +108,7 @@ export const WEDDING_CONFIG = {
       title: "Fellowship & Ajo Partnership at FUTA",
       description:
         "Samuel and Yemisi first met in 2020 at the Federal University of Technology, Akure (FUTA), when Yemisi was a 200-level student and Samuel was serving as the General Secretary of MFMCF FUTA. In 2022, when Samuel was in 400-level and Yemisi was in 300-level, she joined his campus Ajo (savings thrift) business so it could continue smoothly while he went away for Industrial Training (IT).",
-      image: "/assets/aistudio/d46b0807-64c5-45a4-a393-01663fe77ca3_0492cf9d.png",
+      image: "/assets/photos/futa-campus-selfie.webp",
       imageAlt: "Samuel and Yemisi smiling together on campus during their university days at FUTA",
     },
     {
@@ -116,7 +116,7 @@ export const WEDDING_CONFIG = {
       title: "A Song in the Night & Divine Conviction",
       description:
         "At midnight on February 10, 2024, Samuel woke with a song in his heart and an earnest burden to pray. After four hours of praying in tongues, God's still, small voice brought unmistakable peace and clarity that his trusted friend and partner in prayer was the woman God had chosen for his life.",
-      image: "/assets/aistudio/Elegant_Couple_in_Traditional_Attire_e53ebaad.png",
+      image: "/assets/photos/white-ankara-seated.webp",
       imageAlt: "Samuel and Yemisi in bespoke white tops and Ankara print studio portrait",
     },
     {
@@ -124,7 +124,7 @@ export const WEDDING_CONFIG = {
       title: "A Prayerful Valentine's 'Yes'",
       description:
         "When Samuel shared his intentions, Yemisi took it to God in prayer. On Valentine's Day, February 14, 2024, she said 'Yes' and their relationship officially began. It was a step of faith affirmed and blessed by their spiritual mentor Bro. Niyi, their parents, and spiritual leaders in MFM.",
-      image: "/assets/aistudio/RET-Untitled-1_da414ce8.jpg",
+      image: "/assets/photos/suit-pink-hand-kiss.webp",
       imageAlt: "Samuel kissing Yemisi's hand in navy blue suit and blush pink rose gown",
     },
     {
@@ -132,7 +132,7 @@ export const WEDDING_CONFIG = {
       title: "Two Lives, One Divine Purpose",
       description:
         "United by deep-rooted Christian faith, discipline, and sacrificial love, Samuel and Yemisi step into holy matrimony. A marriage founded on Genesis 2:24, ready to raise a godly home that honors Christ and becomes an enduring blessing to generations.",
-      image: "/assets/aistudio/IMG-20261113-WA0006_5451450b.jpg",
+      image: "/assets/photos/royal-blue-gaze.webp",
       imageAlt: "Samuel and Yemisi in sky-blue traditional attire with royal blue fila and gele",
     },
   ] as LoveStoryMilestone[],
@@ -227,11 +227,11 @@ export const WEDDING_CONFIG = {
         icon: "microwave",
       },
       {
-        id: "washing-machine",
-        name: "Washing Machine",
-        category: "Home Care",
-        description: "Effortless, time-saving laundry care for our new home.",
-        icon: "washing-machine",
+        id: "wardrobe",
+        name: "Wardrobe",
+        category: "Bedroom",
+        description: "Spacious clothing storage to keep our new bedroom neat and organized.",
+        icon: "wardrobe",
       },
     ],
 
@@ -254,70 +254,70 @@ export const WEDDING_CONFIG = {
     },
   },
 
-  // Gallery (Populating from the new photo uploads)
+  // Gallery (Optimized WebP assets)
   gallery: {
     row1: [
       {
-        src: "/assets/aistudio/d46b0807-64c5-45a4-a393-01663fe77ca3_0492cf9d.png",
+        src: "/assets/photos/futa-campus-selfie.webp",
         caption: "Where Our Story Began at FUTA",
         alt: "Samuel and Yemisi smiling together on campus during their university days at FUTA",
       },
       {
-        src: "/assets/aistudio/Elegant_Couple_in_Traditional_Attire_e53ebaad.png",
+        src: "/assets/photos/white-ankara-seated.webp",
         caption: "Two Hearts, Hand in Hand",
         alt: "Samuel and Yemisi in white tops and Ankara print sitting together",
       },
       {
-        src: "/assets/aistudio/c3e48b19-e77a-4e63-8557-c313e5ae793e_f45b8ffd.png",
+        src: "/assets/photos/suit-pink-holding-hands.webp",
         caption: "Elegance, Devotion & Grace",
         alt: "Samuel in navy blue suit and Yemisi in blush pink rose gown holding hands",
       },
       {
-        src: "/assets/aistudio/WhatsApp_Image_2026-11-13_at_19.55.30_c9fc3bed.jpeg",
+        src: "/assets/photos/registry-holy-bible.webp",
         caption: "Anchored by the Holy Bible",
         alt: "Samuel and Yemisi smiling together holding the Holy Bible at the registry desk",
       },
     ] as GalleryImage[],
     row2: [
       {
-        src: "/assets/aistudio/IMG-20261113-WA0006_5451450b.jpg",
+        src: "/assets/photos/royal-blue-gaze.webp",
         caption: "Eyes Fixed on Forever",
         alt: "Samuel and Yemisi in sky-blue traditional attire looking into each other's eyes",
       },
       {
-        src: "/assets/aistudio/IMG-20261113-WA0013_65f15b70.jpg",
+        src: "/assets/photos/white-ankara-standing.webp",
         caption: "Standing Together in Joy",
         alt: "Full-length studio embrace in white tops and Ankara cargo trousers",
       },
       {
-        src: "/assets/aistudio/IMG-20261113-WA0007_bb37c7a0.jpg",
+        src: "/assets/photos/royal-blue-shoulder.webp",
         caption: "Peace on Your Shoulder",
         alt: "Yemisi resting her head on Samuel's shoulder in sky-blue and royal-blue traditional attire",
       },
       {
-        src: "/assets/aistudio/WhatsApp_Image_2026-11-13_at_19.55.30__1__bd0d0e4b.jpeg",
+        src: "/assets/photos/ikoyi-registry-lift.webp",
         caption: "Lifting My Bride in Pure Joy",
         alt: "Samuel lifting Yemisi in his arms outside the Federal Marriage Registry Ikoyi",
       },
     ] as GalleryImage[],
     row3: [
       {
-        src: "/assets/aistudio/RET-Untitled-1_da414ce8.jpg",
+        src: "/assets/photos/suit-pink-hand-kiss.webp",
         caption: "A Promise Sealed with Devotion",
         alt: "Samuel kissing Yemisi's hand in navy suit and blush pink gown",
       },
       {
-        src: "/assets/aistudio/RET-Untitled-2_2eb2bb69.jpg",
+        src: "/assets/photos/white-closeup-embrace.webp",
         caption: "Close to My Heart",
         alt: "Close-up studio portrait in crisp white outfits with radiant smiles",
       },
       {
-        src: "/assets/aistudio/RET_1_8261aa3a.jpg",
+        src: "/assets/photos/suit-pink-arm-in-arm.webp",
         caption: "Arm in Arm Forever",
         alt: "Samuel and Yemisi standing arm-in-arm smiling in navy suit and blush pink gown",
       },
       {
-        src: "/assets/aistudio/WhatsApp_Image_2026-11-13_at_19.55.31_2b1b89c3.jpeg",
+        src: "/assets/photos/registry-signing.webp",
         caption: "Signing with the Word of God",
         alt: "Samuel and Yemisi signing their marriage registry certificate together",
       },
@@ -326,7 +326,7 @@ export const WEDDING_CONFIG = {
 
   // RSVP Settings & Destination
   rsvp: {
-    deadline: "November 15, 2026",
+    deadline: "November 30, 2026",
     maxGuestsPerSubmission: 4,
     // Backend endpoint or webhook destination:
     // When deploying, you can set this to your Supabase table, Google Sheets webhook URL, or Firebase function.

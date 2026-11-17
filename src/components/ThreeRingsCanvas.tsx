@@ -62,7 +62,7 @@ export const ThreeRingsCanvas: React.FC<ThreeRingsCanvasProps> = ({
         powerPreference: 'high-performance',
       });
       renderer.setSize(width, height);
-      renderer.setPixelRatio(isSoftwareGl ? 1 : Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(isSoftwareGl ? 1 : Math.min(window.devicePixelRatio, 1.5));
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.38;
@@ -152,13 +152,13 @@ export const ThreeRingsCanvas: React.FC<ThreeRingsCanvasProps> = ({
 
       // RING 1 (Samuel)
       const ring1Group = new THREE.Group();
-      const ring1Geo = new THREE.TorusGeometry(1.3, 0.16, 36, 96);
+      const ring1Geo = new THREE.TorusGeometry(1.3, 0.16, 28, 72);
       const ring1Mesh = new THREE.Mesh(ring1Geo, goldMaterial);
       ring1Mesh.castShadow = !isSoftwareGl;
       ring1Mesh.receiveShadow = !isSoftwareGl;
       ring1Group.add(ring1Mesh);
 
-      const ring1InnerGeo = new THREE.TorusGeometry(1.29, 0.12, 24, 72);
+      const ring1InnerGeo = new THREE.TorusGeometry(1.29, 0.12, 20, 56);
       const ring1InnerMesh = new THREE.Mesh(ring1InnerGeo, goldMaterial);
       ring1Group.add(ring1InnerMesh);
 
@@ -172,7 +172,7 @@ export const ThreeRingsCanvas: React.FC<ThreeRingsCanvasProps> = ({
 
       // RING 2 (Yemisi) with Lilac Amethyst Crown
       const ring2Group = new THREE.Group();
-      const ring2Geo = new THREE.TorusGeometry(1.24, 0.14, 36, 96);
+      const ring2Geo = new THREE.TorusGeometry(1.24, 0.14, 28, 72);
       const ring2Mesh = new THREE.Mesh(ring2Geo, goldMaterial);
       ring2Mesh.castShadow = !isSoftwareGl;
       ring2Mesh.receiveShadow = !isSoftwareGl;
@@ -231,7 +231,7 @@ export const ThreeRingsCanvas: React.FC<ThreeRingsCanvasProps> = ({
       masterRingsGroup.add(haloGroup);
 
       // FLOATING BOKEH GOLD SPARKLES
-      const particleCount = 110;
+      const particleCount = 65;
       const particlePositions = new Float32Array(particleCount * 3);
       const particleSpeeds = new Float32Array(particleCount);
       const particlePhases = new Float32Array(particleCount);
@@ -373,8 +373,13 @@ export const ThreeRingsCanvas: React.FC<ThreeRingsCanvasProps> = ({
       const timer = new THREE.Timer();
       timer.connect(document);
       let currentScroll = 0;
+      let isInViewport = true;
 
       const animate = (timestamp?: number) => {
+        if (!isInViewport) {
+          animationFrameId = 0;
+          return;
+        }
         timer.update(timestamp);
         const delta = Math.min(timer.getDelta(), 0.1);
         const elapsedTime = timer.getElapsed();
@@ -447,7 +452,32 @@ export const ThreeRingsCanvas: React.FC<ThreeRingsCanvasProps> = ({
 
       animate();
 
+      let observer: IntersectionObserver | null = null;
+      if (typeof IntersectionObserver !== 'undefined') {
+        observer = new IntersectionObserver(
+          ([entry]) => {
+            const nextVisible = Boolean(entry?.isIntersecting);
+            if (nextVisible && !isInViewport) {
+              isInViewport = true;
+              timer.reset();
+              if (!animationFrameId) {
+                animationFrameId = requestAnimationFrame(animate);
+              }
+            } else if (!nextVisible && isInViewport) {
+              isInViewport = false;
+              if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = 0;
+              }
+            }
+          },
+          { threshold: 0.01 }
+        );
+        observer.observe(container);
+      }
+
       return () => {
+        observer?.disconnect();
         window.removeEventListener('resize', handleResize);
         cancelAnimationFrame(animationFrameId);
         timer.dispose();

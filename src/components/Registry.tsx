@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { WEDDING_CONFIG, CashDonationMethod } from '../config/weddingConfig';
-import { HeartHandshake, Copy, Check, Tv, Armchair, SunMedium, Microwave, WashingMachine, Smartphone, Building2 } from 'lucide-react';
+import { HeartHandshake, Copy, Check, Tv, Armchair, SunMedium, Microwave, DoorClosed, Smartphone, Building2 } from 'lucide-react';
 
 export const Registry: React.FC = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -182,7 +182,7 @@ export const Registry: React.FC = () => {
                     {item.icon === 'sofa' && <Armchair className="w-5 h-5" />}
                     {item.icon === 'fan' && <SunMedium className="w-5 h-5" />}
                     {item.icon === 'microwave' && <Microwave className="w-5 h-5" />}
-                    {item.icon === 'washing-machine' && <WashingMachine className="w-5 h-5" />}
+                    {item.icon === 'wardrobe' && <DoorClosed className="w-5 h-5" />}
                   </div>
                   <span className="text-[10px] uppercase tracking-wider font-mono px-2.5 py-0.5 rounded-full bg-[#180630] text-[#C8A2C8] border border-[#D4AF37]/40 font-semibold">
                     {item.category}

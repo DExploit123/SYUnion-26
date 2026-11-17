@@ -18,22 +18,22 @@
   }
 }
 
-/* Custom smooth marquee animations */
+/* Custom smooth GPU-composited marquee animations */
 @keyframes marquee-left {
   0% {
-    transform: translateX(0%);
+    transform: translate3d(0%, 0, 0);
   }
   100% {
-    transform: translateX(-33.3333%);
+    transform: translate3d(-33.3333%, 0, 0);
   }
 }
 
 @keyframes marquee-right {
   0% {
-    transform: translateX(-33.3333%);
+    transform: translate3d(-33.3333%, 0, 0);
   }
   100% {
-    transform: translateX(0%);
+    transform: translate3d(0%, 0, 0);
   }
 }
 

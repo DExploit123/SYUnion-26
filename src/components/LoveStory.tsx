@@ -55,6 +55,7 @@ export const LoveStory: React.FC = () => {
                         className="w-full h-80 sm:h-96 md:h-[420px] object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                         referrerPolicy="no-referrer"
                         loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#240B47]/85 via-transparent to-transparent pointer-events-none" />
                       <div className="absolute bottom-3 left-4 text-xs font-serif text-[#F3E5AB] tracking-wide">
