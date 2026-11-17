@@ -26,11 +26,22 @@ interface RsvpRecord {
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
+const COUPLE_PASSCODE = process.env.COUPLE_PASSCODE || 'SY2026';
 
 app.use(express.json());
 
-// In-memory RSVP storage initialized with demo seed or disk store
-const DATA_FILE = path.join(__dirname, '.rsvp_store.json');
+// Persistent storage directory (defaults to project root; set DATA_DIR=/data when using a mounted volume)
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : __dirname;
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+} catch (err) {
+  console.error('Failed to ensure DATA_DIR:', err);
+}
+
+// RSVP storage initialized from disk store
+const DATA_FILE = path.join(DATA_DIR, '.rsvp_store.json');
 let rsvps: RsvpRecord[] = [];
 
 try {
@@ -50,8 +61,8 @@ const saveToDisk = () => {
   }
 };
 
-// In-memory mock sent emails store
-const EMAIL_STORE_FILE = path.join(__dirname, '.sent_emails.json');
+// Sent emails store
+const EMAIL_STORE_FILE = path.join(DATA_DIR, '.sent_emails.json');
 interface SentEmailRecord {
   id: string;
   rsvpId: string;
@@ -182,16 +193,42 @@ app.post('/api/rsvp/resend-email', (req: Request, res: Response) => {
   }
 });
 
-// API: List dispatched emails (for host dashboard)
-app.get('/api/emails', (_req: Request, res: Response) => {
+// Middleware to verify the couple's passcode for private guest response access
+const getRequestPasscode = (req: Request): string => {
+  const headerCode = req.headers['x-couple-passcode'];
+  if (typeof headerCode === 'string') return headerCode.trim();
+  const queryCode = req.query.passcode;
+  if (typeof queryCode === 'string') return queryCode.trim();
+  return '';
+};
+
+const requireCoupleAuth = (req: Request, res: Response, next: () => void) => {
+  const provided = getRequestPasscode(req);
+  if (!provided || provided !== COUPLE_PASSCODE) {
+    return res.status(401).json({ error: 'Invalid or missing couple passcode.' });
+  }
+  return next();
+};
+
+// API: Verify Couple Portal passcode
+app.post('/api/couple/auth', (req: Request, res: Response) => {
+  const passcode = String(req.body?.passcode || '').trim();
+  if (!passcode || passcode !== COUPLE_PASSCODE) {
+    return res.status(401).json({ authenticated: false, error: 'Incorrect passcode. Please try again.' });
+  }
+  return res.json({ authenticated: true });
+});
+
+// API: List dispatched emails (protected for couple portal)
+app.get('/api/emails', requireCoupleAuth, (_req: Request, res: Response) => {
   return res.json({
     totalSent: sentEmails.length,
     emails: sentEmails,
   });
 });
 
-// API: List RSVPs (for couple's summary)
-app.get('/api/rsvp', (_req: Request, res: Response) => {
+// API: List RSVPs (protected for couple's private portal)
+app.get('/api/rsvp', requireCoupleAuth, (_req: Request, res: Response) => {
   const attendingCount = rsvps
     .filter((r) => r.attending === 'yes')
     .reduce((sum, r) => sum + r.guestCount, 0);
@@ -203,8 +240,22 @@ app.get('/api/rsvp', (_req: Request, res: Response) => {
   });
 });
 
-// API: Export CSV
-app.get('/api/rsvp/export-csv', (_req: Request, res: Response) => {
+// API: Delete an RSVP record (e.g. test submissions or duplicates)
+app.delete('/api/rsvp/:id', requireCoupleAuth, (req: Request, res: Response) => {
+  const { id } = req.params;
+  const initialLength = rsvps.length;
+  rsvps = rsvps.filter((r) => r.id !== id);
+  if (rsvps.length === initialLength) {
+    return res.status(404).json({ error: 'RSVP record not found.' });
+  }
+  saveToDisk();
+  sentEmails = sentEmails.filter((e) => e.rsvpId !== id);
+  saveEmailsToDisk();
+  return res.json({ success: true, id });
+});
+
+// API: Export CSV (protected for couple portal)
+app.get('/api/rsvp/export-csv', requireCoupleAuth, (_req: Request, res: Response) => {
   const headers = ['ID', 'Full Name', 'Contact', 'Attending', 'Guests', 'Dietary Notes', 'Message', 'Date Submitted'];
   const rows = rsvps.map((r) => [
     `"${r.id}"`,
@@ -219,7 +270,7 @@ app.get('/api/rsvp/export-csv', (_req: Request, res: Response) => {
 
   const csvContent = [headers.join(','), ...rows.map((row) => row.join(','))].join('\n');
   res.setHeader('Content-Type', 'text/csv');
-  res.setHeader('Content-Disposition', 'attachment; filename="wedding_rsvps_samuel_yemisi.csv"');
+  res.setHeader('Content-Disposition', 'attachment; filename="wedding_rsvps_oluwasegun_yemisi.csv"');
   return res.send(csvContent);
 });
 

@@ -5,9 +5,13 @@
 
 import React from 'react';
 import { WEDDING_CONFIG } from '../config/weddingConfig';
-import { Heart, ArrowUp } from 'lucide-react';
+import { Heart, ArrowUp, Lock } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenCouplePortal?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenCouplePortal }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -84,11 +88,27 @@ export const Footer: React.FC = () => {
           </button>
         </div>
 
-        {/* Copyright */}
-        <div className="text-[11px] text-[#FBF9F5]/60 pt-4 border-t border-[#3B1C66] flex items-center justify-center gap-1 font-sans">
-          <span>With love & gratitude</span>
-          <Heart className="w-3 h-3 text-[#C8A2C8] fill-[#C8A2C8]" />
-          <span>© {WEDDING_CONFIG.footer.copyrightYear}</span>
+        {/* Copyright & Discreet Couple Portal Link */}
+        <div className="text-[11px] text-[#FBF9F5]/60 pt-4 border-t border-[#3B1C66] flex flex-wrap items-center justify-center gap-x-3 gap-y-2 font-sans">
+          <span className="inline-flex items-center gap-1">
+            <span>With love & gratitude</span>
+            <Heart className="w-3 h-3 text-[#C8A2C8] fill-[#C8A2C8]" />
+            <span>© {WEDDING_CONFIG.footer.copyrightYear}</span>
+          </span>
+          {onOpenCouplePortal && (
+            <>
+              <span className="text-[#FBF9F5]/30">·</span>
+              <button
+                type="button"
+                onClick={onOpenCouplePortal}
+                className="inline-flex items-center gap-1 text-[#C8A2C8]/75 hover:text-[#F3E5AB] transition-colors cursor-pointer"
+                title="Private Couple RSVP Portal"
+              >
+                <Lock className="w-3 h-3" />
+                <span>Couple Portal</span>
+              </button>
+            </>
+          )}
         </div>
       </div>
     </footer>
