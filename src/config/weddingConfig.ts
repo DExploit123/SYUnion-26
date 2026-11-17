@@ -95,7 +95,7 @@ export const WEDDING_CONFIG = {
   // Hero Section
   hero: {
     tagline: "Are getting married",
-    names: "Samuel & Yemisi",
+    names: "Oluwasegun & Yemisi",
     dateText: "December 12, 2026",
     subtitle: "Together with their families, invite you to celebrate their holy matrimony",
     scrollHint: "Scroll to explore our journey",
@@ -261,6 +261,11 @@ export const WEDDING_CONFIG = {
         src: "/assets/photos/futa-campus-selfie.webp",
         caption: "Where Our Story Began at FUTA",
         alt: "Samuel and Yemisi smiling together on campus during their university days at FUTA",
+      },
+      {
+        src: "/assets/photos/campus-park-smile.webp",
+        caption: "Sweet Moments in the Park",
+        alt: "Oluwasegun in a maroon shirt and Yemisi in a bright floral top smiling together outdoors",
       },
       {
         src: "/assets/photos/white-ankara-seated.webp",

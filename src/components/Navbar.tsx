@@ -53,7 +53,7 @@ export const Navbar: React.FC = () => {
           href="#"
           className="text-xl sm:text-2xl font-serif font-bold text-[#240B47] hover:text-[#5B21B6] transition-colors tracking-wide whitespace-nowrap shrink-0"
         >
-          {WEDDING_CONFIG.couple.combinedShort}
+          SYUnion
         </a>
 
         {/* Zone 2: Navigation Links */}

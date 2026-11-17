@@ -175,7 +175,7 @@ export const Hero: React.FC = () => {
       {/* Central Hero Typography Overlay */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto my-auto select-none pointer-events-none">
         <h1
-          className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-serif text-[#240B47] font-semibold tracking-tight leading-[1.06]"
+          className="text-[2.65rem] sm:text-6xl md:text-7xl lg:text-8xl font-serif text-[#240B47] font-semibold tracking-tight leading-[1.06]"
           style={{
             textShadow: '0 2px 26px rgba(246, 232, 248, 0.92), 0 1px 4px rgba(255, 255, 255, 0.85)',
           }}
