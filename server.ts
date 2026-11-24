@@ -256,14 +256,13 @@ app.delete('/api/rsvp/:id', requireCoupleAuth, (req: Request, res: Response) => 
 
 // API: Export CSV (protected for couple portal)
 app.get('/api/rsvp/export-csv', requireCoupleAuth, (_req: Request, res: Response) => {
-  const headers = ['ID', 'Full Name', 'Contact', 'Attending', 'Guests', 'Dietary Notes', 'Message', 'Date Submitted'];
+  const headers = ['ID', 'Full Name', 'Contact', 'Attending', 'Guests', 'Message', 'Date Submitted'];
   const rows = rsvps.map((r) => [
     `"${r.id}"`,
     `"${r.fullName.replace(/"/g, '""')}"`,
     `"${r.contact.replace(/"/g, '""')}"`,
     `"${r.attending}"`,
     `"${r.guestCount}"`,
-    `"${(r.dietaryNotes || '').replace(/"/g, '""')}"`,
     `"${(r.message || '').replace(/"/g, '""')}"`,
     `"${r.timestamp}"`,
   ]);

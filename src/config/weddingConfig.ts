@@ -137,7 +137,7 @@ export const WEDDING_CONFIG = {
     },
   ] as LoveStoryMilestone[],
 
-  // Wedding Details & Schedule (Engagement at 9am, Church Wedding at 12pm, Reception at Same Venue)
+  // Wedding Details & Schedule (Engagement at 9am, Church Wedding at 12pm followed by refreshments & dismissal)
   schedule: [
     {
       id: "engagement-ceremony",
@@ -148,7 +148,7 @@ export const WEDDING_CONFIG = {
       description:
         "The customary engagement, traditional introductions, and ancestral blessings uniting the Onasanya and Akinlolu families.",
       mapUrl: "https://maps.google.com/?q=8+Baale+Salisu+street+off+Ago+Igbala+Bus+stop+Ibafo+Ogun+State",
-      calendarTitle: "Samuel & Yemisi Traditional Engagement",
+      calendarTitle: "Oluwasegun & Yemisi Traditional Engagement",
       calendarDetails: "Traditional Engagement Ceremony at MFM SW 24, Regional Headquarters, Ibafo, Ogun State.",
       startTime: "2026-12-12T09:00:00",
       endTime: "2026-12-12T11:30:00",
@@ -160,26 +160,12 @@ export const WEDDING_CONFIG = {
       venue: "MFM SW 24, Regional Headquarters",
       address: "8, Baale Salisu street off Ago Igbala Bus stop, Ibafo, Ogun State",
       description:
-        "The sacred exchange of vows, blessing of rings, and solemnization of holy matrimony before God and the church congregation.",
+        "The sacred exchange of vows, blessing of rings, and solemnization of holy matrimony before God and the congregation, followed by refreshment sharing and dismissal.",
       mapUrl: "https://maps.google.com/?q=8+Baale+Salisu+street+off+Ago+Igbala+Bus+stop+Ibafo+Ogun+State",
-      calendarTitle: "Samuel & Yemisi Church Wedding",
+      calendarTitle: "Oluwasegun & Yemisi Church Wedding",
       calendarDetails: "Church Holy Matrimony at MFM SW 24, Regional Headquarters, Ibafo, Ogun State.",
       startTime: "2026-12-12T12:00:00",
       endTime: "2026-12-12T14:00:00",
-    },
-    {
-      id: "wedding-reception",
-      name: "Wedding Reception & Celebration",
-      time: "2:00 PM – 6:00 PM (Immediately Following Service)",
-      venue: "MFM SW 24, Regional Headquarters (Same Venue)",
-      address: "8, Baale Salisu street off Ago Igbala Bus stop, Ibafo, Ogun State",
-      description:
-        "Joyful reception, wedding dinner, royal toasts, traditional cake cutting, and thanksgiving dancing right at the same venue grounds.",
-      mapUrl: "https://maps.google.com/?q=8+Baale+Salisu+street+off+Ago+Igbala+Bus+stop+Ibafo+Ogun+State",
-      calendarTitle: "Samuel & Yemisi Wedding Reception",
-      calendarDetails: "Wedding Reception dinner & thanksgiving celebration at MFM SW 24, Regional Headquarters, Ibafo, Ogun State.",
-      startTime: "2026-12-12T14:00:00",
-      endTime: "2026-12-12T18:00:00",
     },
   ] as ScheduleEvent[],
 

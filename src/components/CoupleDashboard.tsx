@@ -16,7 +16,6 @@ import {
   Trash2,
   MessageSquareHeart,
   Mail,
-  Utensils,
   X,
   Eye,
   EyeOff,
@@ -30,7 +29,6 @@ export interface GuestSummaryRecord {
   contact: string;
   attending: 'yes' | 'no';
   guestCount: number;
-  dietaryNotes?: string;
   message?: string;
   timestamp: string;
 }
@@ -74,7 +72,7 @@ export const CoupleDashboard: React.FC<CoupleDashboardProps> = ({
   const [authError, setAuthError] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState<'guests' | 'wishes' | 'emails'>('guests');
-  const [filterMode, setFilterMode] = useState<'all' | 'yes' | 'no' | 'dietary'>('all');
+  const [filterMode, setFilterMode] = useState<'all' | 'yes' | 'no' | 'wishes'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const [guestList, setGuestList] = useState<GuestSummaryRecord[]>([]);
@@ -222,7 +220,6 @@ export const CoupleDashboard: React.FC<CoupleDashboardProps> = ({
       'Contact',
       'Attending',
       'Party Size',
-      'Dietary Notes',
       'Blessing / Message',
       'Submitted At',
     ];
@@ -232,7 +229,6 @@ export const CoupleDashboard: React.FC<CoupleDashboardProps> = ({
       `"${r.contact.replace(/"/g, '""')}"`,
       `"${r.attending === 'yes' ? 'Attending' : 'Declined'}"`,
       `"${r.attending === 'yes' ? r.guestCount : 0}"`,
-      `"${(r.dietaryNotes || '').replace(/"/g, '""')}"`,
       `"${(r.message || '').replace(/"/g, '""')}"`,
       `"${r.timestamp}"`,
     ]);
@@ -252,14 +248,12 @@ export const CoupleDashboard: React.FC<CoupleDashboardProps> = ({
     const attendingRecords = guestList.filter((r) => r.attending === 'yes');
     const declinedRecords = guestList.filter((r) => r.attending === 'no');
     const attendingGuests = attendingRecords.reduce((sum, r) => sum + (Number(r.guestCount) || 1), 0);
-    const dietaryCount = guestList.filter((r) => r.dietaryNotes && r.dietaryNotes.trim().length > 0).length;
     const wishesCount = guestList.filter((r) => r.message && r.message.trim().length > 0).length;
     return {
       totalResponses: guestList.length,
       attendingResponses: attendingRecords.length,
       attendingGuests,
       declinedCount: declinedRecords.length,
-      dietaryCount,
       wishesCount,
     };
   }, [guestList]);
@@ -269,13 +263,12 @@ export const CoupleDashboard: React.FC<CoupleDashboardProps> = ({
     return guestList.filter((guest) => {
       if (filterMode === 'yes' && guest.attending !== 'yes') return false;
       if (filterMode === 'no' && guest.attending !== 'no') return false;
-      if (filterMode === 'dietary' && !(guest.dietaryNotes && guest.dietaryNotes.trim())) return false;
+      if (filterMode === 'wishes' && !(guest.message && guest.message.trim())) return false;
 
       if (!query) return true;
       return (
         guest.fullName.toLowerCase().includes(query) ||
         guest.contact.toLowerCase().includes(query) ||
-        (guest.dietaryNotes || '').toLowerCase().includes(query) ||
         (guest.message || '').toLowerCase().includes(query)
       );
     });
@@ -377,7 +370,7 @@ export const CoupleDashboard: React.FC<CoupleDashboardProps> = ({
                   Couple Access Required
                 </h3>
                 <p className="text-xs sm:text-sm text-[#C8B6FF]/85 leading-relaxed">
-                  Enter your private passcode to view guest RSVPs, party sizes, dietary notes, and wedding wishes.
+                  Enter your private passcode to view guest RSVPs, party sizes, and wedding wishes.
                 </p>
               </div>
 
@@ -464,11 +457,11 @@ export const CoupleDashboard: React.FC<CoupleDashboardProps> = ({
 
               <div className="p-3.5 sm:p-4 rounded-xl bg-[#120826] border border-[#D4AF37]/25">
                 <div className="flex items-center justify-between text-xs text-[#C8B6FF]">
-                  <span>Dietary Notes</span>
-                  <Utensils className="w-4 h-4 text-[#F3E5AB]" />
+                  <span>Wishes &amp; Prayers</span>
+                  <MessageSquareHeart className="w-4 h-4 text-[#F3E5AB]" />
                 </div>
                 <div className="text-2xl font-serif text-[#F3E5AB] mt-1 tabular-nums font-bold">
-                  {stats.dietaryCount}
+                  {stats.wishesCount}
                 </div>
               </div>
             </div>
@@ -533,7 +526,7 @@ export const CoupleDashboard: React.FC<CoupleDashboardProps> = ({
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search by name, email, phone, dietary note, or message..."
+                    placeholder="Search by name, email, phone, or message..."
                     className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#120826] border border-[#3B1C66] text-xs sm:text-sm text-white placeholder:text-[#C8B6FF]/45 focus:outline-none focus:border-[#D4AF37]"
                   />
                 </div>
@@ -544,7 +537,7 @@ export const CoupleDashboard: React.FC<CoupleDashboardProps> = ({
                       { key: 'all', label: 'All' },
                       { key: 'yes', label: 'Attending' },
                       { key: 'no', label: 'Declined' },
-                      { key: 'dietary', label: 'Has Dietary Notes' },
+                      { key: 'wishes', label: 'With Wishes' },
                     ] as const
                   ).map((f) => (
                     <button
@@ -647,26 +640,16 @@ export const CoupleDashboard: React.FC<CoupleDashboardProps> = ({
                           </div>
                         </div>
 
-                        {(guest.dietaryNotes || guest.message) && (
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1">
-                            {guest.dietaryNotes && (
-                              <div className="px-3 py-2 rounded-xl bg-[#180730] border border-[#3B1C66] text-xs">
-                                <span className="text-[#F3E5AB] font-semibold block mb-0.5">
-                                  Dietary / Special Notes:
-                                </span>
-                                <span className="text-[#FBF9F5]/85">{guest.dietaryNotes}</span>
-                              </div>
-                            )}
-                            {guest.message && (
-                              <div className="px-3 py-2 rounded-xl bg-[#180730] border border-[#3B1C66] text-xs md:col-span-1">
-                                <span className="text-[#C8B6FF] font-semibold block mb-0.5">
-                                  Blessing / Message:
-                                </span>
-                                <span className="text-[#FBF9F5]/90 italic">
-                                  &ldquo;{guest.message}&rdquo;
-                                </span>
-                              </div>
-                            )}
+                        {guest.message && (
+                          <div className="pt-1">
+                            <div className="px-3 py-2 rounded-xl bg-[#180730] border border-[#3B1C66] text-xs">
+                              <span className="text-[#C8B6FF] font-semibold block mb-0.5">
+                                Blessing / Message:
+                              </span>
+                              <span className="text-[#FBF9F5]/90 italic">
+                                &ldquo;{guest.message}&rdquo;
+                              </span>
+                            </div>
                           </div>
                         )}
                       </div>

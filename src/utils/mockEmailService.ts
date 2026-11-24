@@ -111,11 +111,7 @@ export function generateConfirmationEmail(params: {
         <h3 style="color: #F3E5AB; margin-bottom: 12px; font-size: 16px;">Celebration Itinerary & Details:</h3>
         <div class="itinerary-item">
           <div class="itinerary-title">Traditional Engagement &amp; Church Holy Matrimony</div>
-          <div class="itinerary-meta">9:00 AM Engagement · 12:00 PM Church Wedding · MFM SW 24, Regional Headquarters, Ibafo, Ogun State</div>
-        </div>
-        <div class="itinerary-item">
-          <div class="itinerary-title">Wedding Reception &amp; Celebration</div>
-          <div class="itinerary-meta">2:00 PM · Same Venue (MFM SW 24, Regional Headquarters, Ibafo)</div>
+          <div class="itinerary-meta">9:00 AM Engagement · 12:00 PM Church Wedding (followed by refreshments &amp; dismissal) · MFM SW 24, Regional Headquarters, Ibafo, Ogun State</div>
         </div>
         <div class="itinerary-item">
           <div class="itinerary-title">Dress Code</div>
@@ -167,8 +163,7 @@ ${isAttending ? `Party Size: ${guestCount} Guest(s)` : ''}
 
 Itinerary:
 - Traditional Engagement: 9:00 AM at MFM SW 24, Regional Headquarters, Ibafo, Ogun State
-- Church Holy Matrimony: 12:00 PM at MFM SW 24, Regional Headquarters, Ibafo, Ogun State
-- Wedding Reception: 2:00 PM (Same Venue)
+- Church Holy Matrimony: 12:00 PM at MFM SW 24, Regional Headquarters, Ibafo, Ogun State (followed by refreshments & dismissal)
 - Dress Code: White & Blue (Traditional attire or elegant formal wear)
 
 With all our love,
